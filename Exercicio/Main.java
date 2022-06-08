@@ -13,7 +13,6 @@ public class Main {
 			if(opcao < 1 || opcao > 6) {
 				JOptionPane.showMessageDialog(null, "Opcăo inválida");
 			}else {
-				ArvoreBinaria aux = new ArvoreBinaria();
 				switch(opcao) {
 				case 1:
 					Processo.registrarProduto();
@@ -22,13 +21,15 @@ public class Main {
                     Processo.pesquisarProduto();
                 break;
 				case 3:
-					
+					Processo.imprimir();
 				break;
                 case 4:
-					
+					JOptionPane.showMessageDialog(null, "Selmini, infelizmente não sabemos\ncomo remover um elemento... 😢", "Dá nota se for humilde 😭", JOptionPane.ERROR_MESSAGE
+					);
 				break;
                 case 5:
-                    JOptionPane.showMessageDialog(null, "x");
+					Processo.altura();
+                    JOptionPane.showMessageDialog(null, "Finalizado, Beijos Selmini! 💖\nAmamos ter aula com você e sentiremos saudades!", "😘 Finalizado 😘", JOptionPane.INFORMATION_MESSAGE);
                 break;
 				}
 			}

@@ -5,22 +5,29 @@ import javax.swing.JOptionPane;
 public class ArvoreBinaria {
 
 	private No raiz;
+	private int altura, aux;
+
+	public No getRaiz() {
+		return raiz;
+	}
 	
-	//método para inserir um elemento na árvore binária de busca
 	public void inserir(Produto p) {
+		aux = 0;
 		if (raiz == null) {
 			raiz = new No(p);
 		} else {
-			raiz.inserirNo(p);
+			aux = raiz.inserirNo(p, aux);
 		}
+		if (aux >= altura) {
+			altura = aux;
+		}
+
 	}
 		
-	//método para percorrer a árvore em-ordem
 	public void emOrdem() {
 		emOrdemRecursivo(raiz);
 	}
 	
-	//método auxiliar recursivo para o percurso em-ordem
 	private void emOrdemRecursivo(No raiz) {
 		if (raiz == null) {
 			return;
@@ -31,36 +38,48 @@ public class ArvoreBinaria {
 		emOrdemRecursivo(raiz.dir);
 		
 	}
+
+	public void pesquisar(int codigo) {
+		No aux = pesquisarRec(codigo, raiz);
+		if (aux != null) {
+			JOptionPane.showMessageDialog(null, aux.p);
+		} else {
+			JOptionPane.showMessageDialog(null,"Esse produto não está no sistema.", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+	}
 	
-	//método para percorrer a árvore na pré-ordem
-	public void preOrdem() {
+	private No pesquisarRec(int codigo, No raiz2) {
+		if (raiz == null) {
+			return null;
+		} else if (raiz.p.getCodigo() == codigo) {
+			return raiz;
+		}
+		if (codigo < raiz.p.getCodigo()) {
+			return pesquisarRec(codigo, raiz.dir);
+		} else {
+			return pesquisarRec(codigo, raiz.esq);
+		}
+
+	}
+
+	public void imprimirPreOrdem() {
 		preOrdemRecursivo(raiz);
 	}
 
-	//método auxiliar recursivo para o percurso na pré-ordem
 	private void preOrdemRecursivo(No raiz) {
 		if(raiz == null) {
 			return;
 		}
 		
-		System.out.print(raiz.p + " ");
+		JOptionPane.showMessageDialog(null, raiz.p + "\n");
 		preOrdemRecursivo(raiz.esq);
 		preOrdemRecursivo(raiz.dir);
 		
 	}
 
-    public No pesquisar(Produto produto) {
-        No aux = raiz;
-        boolean encontrou = false;
-
-        while(encontrou == false && aux != null) {
-            encontrou = true;
-            break;
-        }
-        return aux;
-    }
-
-	
+	public void altura(){
+		JOptionPane.showMessageDialog(null, "A altura da árvore é de: " + altura);
+	}	
 	
 }
 

@@ -9,23 +9,25 @@ public class No {
 		this.p = produto;
 	}
 
-	public void inserirNo(Produto produto) {
-		if(produto.getCodigo() > p.getCodigo()) {
-			if(dir == null) {
-				dir = new No(p);
-			} else {
-				dir.inserirNo(produto);
-			}
-		} else {
-			if (produto.getCodigo() < p.getCodigo()) {
-				if (esq == null) {
-					esq = new No(produto);
-				} else {
-					esq.inserirNo(produto);
-				}
-			}
-		}
-	}
+	public int inserirNo(Produto produto,int altura){
+        if(produto.getCodigo() > p.getCodigo()){
+            if(dir == null){            
+                dir = new No(produto);
+                return altura +1 ;
+            } else{
+                altura++;
+                return dir.inserirNo(produto,altura);
+            }
+        } else{
+                if(esq == null){
+                    esq = new No(produto);
+                    return altura + 1;
+                } else{
+                    altura++;
+                    return esq.inserirNo(produto,altura);
+                }
+            }
+        }
 	
 	
 	
