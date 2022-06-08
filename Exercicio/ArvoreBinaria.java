@@ -39,16 +39,21 @@ public class ArvoreBinaria {
 		
 	}
 
-	public void pesquisar(int codigo) {
+	/* public void pesquisar(int codigo) {
 		No aux = pesquisarRec(codigo, raiz);
 		if (aux != null) {
 			JOptionPane.showMessageDialog(null, aux.p);
 		} else {
 			JOptionPane.showMessageDialog(null,"Esse produto não está no sistema.", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
-	}
-	
-	private No pesquisarRec(int codigo, No raiz2) {
+	} */
+
+	public No pesquisar(int codigo) {
+        No aux = pesquisarProduto(codigo, this.raiz);
+        return aux;
+    }
+
+	/*private No pesquisarRec(int codigo, No raiz) {
 		if (raiz == null) {
 			return null;
 		} else if (raiz.p.getCodigo() == codigo) {
@@ -60,7 +65,22 @@ public class ArvoreBinaria {
 			return pesquisarRec(codigo, raiz.esq);
 		}
 
-	}
+	} */
+
+	private No pesquisarProduto(int codigo, No raiz){
+        if(raiz == null){
+            return null;
+        }
+        if(codigo == raiz.p.getCodigo()){
+            return raiz;
+        }
+        
+        if(codigo > raiz.p.getCodigo()){
+            return pesquisarProduto(codigo, raiz.dir);   
+        } else {    
+            return pesquisarProduto(codigo, raiz.esq);
+        }
+    }
 
 	public void imprimirPreOrdem() {
 		preOrdemRecursivo(raiz);

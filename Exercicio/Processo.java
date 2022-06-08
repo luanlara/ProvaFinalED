@@ -21,32 +21,37 @@ public class Processo {
 		int codigo;
 
         codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Código do produto:"));
-        Produto produto = new Produto(codigo);
 
-        String nome;
-        double valor;
-        int qtd;
-
-        nome = JOptionPane.showInputDialog("Nome do produto:");
-        valor = Double.parseDouble(JOptionPane.showInputDialog("Valor do produto:"));
-        qtd = Integer.parseInt(JOptionPane.showInputDialog("Quantidade de estoque:"));
-
-        if(qtd <= 0) {
-            qtd = Integer.parseInt(JOptionPane.showInputDialog("Quantidade não compatível. \n Quantidade de produtos precisa ser maior que 0:"));
+        if(av.pesquisar(codigo) == null){
+            String nome = JOptionPane.showInputDialog("Informe o nome do produto: ");
+            double valor = Double.parseDouble(JOptionPane.showInputDialog("Informe o valor do produto: "));
+            if (valor > 0) {
+                int estoque = Integer.parseInt(JOptionPane.showInputDialog("Informe o estoque do produto: "));
+                if(estoque > 0){
+                    Produto produto = new Produto(codigo, nome, valor, estoque);
+                    av.inserir(produto);
+                    JOptionPane.showMessageDialog(null, "Produto cadastrado!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "O número de quantidade de estoque deve ser maior que zero!", "Erro",JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "O valor deve ser maior que zero!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }   
+        } else {
+            JOptionPane.showMessageDialog(null, "Código já existente!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-
-        Produto prod = new Produto(codigo, nome, valor, qtd);
-        av.inserir(prod);
+    }
     
-    }    	
+       	
 
     public static void pesquisarProduto() {
-        if(av.getRaiz() == null) {
+        int codigo = Integer.parseInt(JOptionPane.showInputDialog("Informe o código do produto: "));
+
+        if(av.pesquisar(codigo) == null ){
             JOptionPane.showMessageDialog(null, "Não há produtos registrados.", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
-            int codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Código do produto:"));
-            av.pesquisar(codigo);
-        }  
+            JOptionPane.showMessageDialog(null, "       PRODUTO       \n"+ av.pesquisar(codigo).p);
+        }
     }
 
     public static void imprimir() {
